@@ -459,8 +459,8 @@ export async function onboard(opts: OnboardOptions): Promise<void> {
     await bootstrapCeoInvite({ config: configPath });
   }
 
-  let shouldRunNow = opts.run === true || opts.yes === true;
-  if (!shouldRunNow && !opts.invokedByRun && process.stdin.isTTY && process.stdout.isTTY) {
+  let shouldRunNow = opts.run === true;
+  if (!shouldRunNow && !opts.invokedByRun && !opts.yes && process.stdin.isTTY && process.stdout.isTTY) {
     const answer = await p.confirm({
       message: "Start Paperclip now?",
       initialValue: true,

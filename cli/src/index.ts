@@ -44,7 +44,7 @@ program
   .description("Interactive first-run setup wizard")
   .option("-c, --config <path>", "Path to config file")
   .option("-d, --data-dir <path>", DATA_DIR_OPTION_HELP)
-  .option("-y, --yes", "Accept defaults (quickstart + start immediately)", false)
+  .option("-y, --yes", "Accept all defaults without prompting", false)
   .option("--run", "Start Paperclip immediately after saving config", false)
   .action(onboard);
 
@@ -102,6 +102,7 @@ program
   .option("-c, --config <path>", "Path to config file")
   .option("-d, --data-dir <path>", DATA_DIR_OPTION_HELP)
   .option("-i, --instance <id>", "Local instance id (default: default)")
+  .option("-y, --yes", "Auto-onboard with defaults if config is missing (non-interactive)", false)
   .option("--repair", "Attempt automatic repairs during doctor", true)
   .option("--no-repair", "Disable automatic repairs during doctor")
   .action(runCommand);

@@ -50,14 +50,15 @@ export async function runCommand(opts: RunOptions): Promise<void> {
   p.log.message(pc.dim(`Config: ${configPath}`));
 
   if (!configExists(configPath)) {
-    if (!process.stdin.isTTY || !process.stdout.isTTY) {
+    const nonInteractive = !process.stdin.isTTY || !process.stdout.isTTY;
+    if (nonInteractive && !opts.yes) {
       p.log.error("No config found and terminal is non-interactive.");
-      p.log.message(`Run ${pc.cyan("paperclipai onboard")} once, then retry ${pc.cyan("paperclipai run")}.`);
+      p.log.message(`Run ${pc.cyan("paperclipai onboard --yes")} once, then retry ${pc.cyan("paperclipai run")}.`);
       process.exit(1);
     }
 
     p.log.step("No config found. Starting onboarding...");
-    await onboard({ config: configPath, invokedByRun: true });
+    await onboard({ config: configPath, invokedByRun: true, yes: opts.yes });
   }
 
   p.log.step("Running doctor checks...");
